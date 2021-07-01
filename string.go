@@ -92,13 +92,105 @@ func IndexAnyTest(){
 
 /***********  indexFunc的用法 **************/
 
-func f(str string){}
+// f p为字符类型
+func f(p rune) bool{
+	if p == 'w'{
+		return true
+	}else {
+		return false
+	}
+}
 
+// IndexFuncTest 该函数可以调用一个函数（包括匿名函数）,不存在则返回-1。
+func IndexFuncTest(){
+	fmt.Println(strings.IndexFunc("www.zfck.net",f)) // 0
+	fmt.Println(strings.LastIndexFunc("www.zfck.net",f))  // 2
+}
 
-func IndexFunc(){
+// LastIndexTest 子串(第二个参数)在字符串(第一个参数)中最后一次出现的位置，不存在则返回-1。
+func LastIndexTest(){
+	fmt.Println(strings.LastIndex("www.zfck.net","w"))    //2
+}
 
+// LastIndexAnyTest 子串任意一个字符(第二个参数)在字符串(第一个参数)中最后一次出现的位置，不存在则返回-1。
+func LastIndexAnyTest(){
+	fmt.Println(strings.LastIndexAny("www.zfck.net","wasdfwte"))    //11
+}
+
+// TitleTest 将每句话的第一个数变成大写
+func TitleTest(){
+	fmt.Println(strings.Title("hellow world")) //	Hellow World
+	fmt.Println(strings.Title("www.zfck.net world")) //	Www.Zfck.Net World
+}
+
+// ToLowerTest 将所有字母都转为对应的小写(只进行值拷贝)
+func ToLowerTest(){
+	var upStr = "WWW.ZFCK.NET"
+	fmt.Println(strings.ToLower(upStr)) // www.zfck.net
+	fmt.Println(upStr) 	// WWW.ZFCK.NET
+}
+
+// ToUpperTest 将所有字母都转为对应的小写(只进行值拷贝)
+func ToUpperTest(){
+	var upStr = "www.zfck.net"
+	fmt.Println(strings.ToUpper(upStr)) // www.zfck.net
+	fmt.Println(upStr) 	// www.zfck.net
+}
+
+// ToTitleTest 将每句话都变成大写（类似ToUpper）
+func ToTitleTest(){
+	fmt.Println(strings.ToTitle("hellow world")) //	HELLOW WORLD
+	fmt.Println(strings.ToTitle("www.zfck.net world")) //	WWW.ZFCK.NET WORLD
+}
+
+// RepeatTest 拼接并重复提供给的字符串
+func RepeatTest(){
+	fmt.Println("刘" + strings.Repeat("粤新",2)) // 刘粤新粤新
+}
+
+// ReplaceTest 替换老字符 数字代表替换几个字符
+func ReplaceTest(){
+	fmt.Println(strings.Replace("www.zfck.net","w","T",3))
+	fmt.Println(strings.Replace("www.zfck.net","w","T",2))
+	fmt.Println(strings.Replace("www.zfck.net","w","T",1))
+	fmt.Println(strings.Replace("www.zfck.net","w","T",-1))
+}
+
+func r(p rune) rune{
+	fmt.Println(string(p)) // www.zfck.net
+	if p == 't'{
+		return '正'
+	}
+	if p == 'w'{
+		return '夫'
+	}
+	return p
+}
+
+// MapTest 该方法会循环将提供的字符串传到 r 函数进行匹配与兑换
+func MapTest(){
+	fmt.Println(strings.Map(r,"www.zfck.net")) // 夫夫夫.zfck.ne正
+}
+
+// TrimTest 去除提供字符串两边给定的字符
+func TrimTest(){
+	fmt.Printf("[%v]",strings.Trim("www.zfck.netwwww","w"))  //[.zfck.net]
+}
+
+// TrimSpaceTest 除去两边的空格以及制表符
+func TrimSpaceTest(){
+	fmt.Println(strings.TrimSpace("     \n\t\bwww.zf\tck.net    \b\n")) // www.zf  ck.net
+}
+
+func ft(i rune) bool{
+	fmt.Println(string(i))
+	return true
+}
+
+func TrimFuncTest(){
+	fmt.Println(strings.TrimFunc("w w  w. z f ck .net",ft))
 }
 
 func main(){
-	IndexAnyTest()
+	TrimFuncTest()
 }
