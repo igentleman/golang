@@ -182,15 +182,26 @@ func TrimSpaceTest(){
 	fmt.Println(strings.TrimSpace("     \n\t\bwww.zf\tck.net    \b\n")) // www.zf  ck.net
 }
 
-func ft(i rune) bool{
-	fmt.Println(string(i))
-	return true
+// TrimLeftRightTest 匹配前/后端
+func TrimLeftRightTest(){
+	//前
+	fmt.Println(strings.TrimLeft("www.zfck.net","wwww")) // .zfck.net
+
+	//后
+	fmt.Println(strings.TrimRight("www.zfck.netw","wwww")) // www.zfck.net
 }
 
-func TrimFuncTest(){
-	fmt.Println(strings.TrimFunc("w w  w. z f ck .net",ft))
+// TrimPrefixSuffixTest 返回去除（第一个参数）可能的前缀prefix的字符串。
+func TrimPrefixSuffixTest(){
+	//前
+	fmt.Println(strings.TrimPrefix("www.zfck.net","wwww")) // www.zfck.net
+	fmt.Println(strings.TrimPrefix("www.zfck.net","www.")) // zfck.net
+
+	//后
+	fmt.Println(strings.TrimSuffix("www.zfck.net","wwww")) // www.zfck.net
+	fmt.Println(strings.TrimSuffix("www.zfck.net",".net")) // www.zfck
 }
 
 func main(){
-	TrimFuncTest()
+	TrimPrefixSuffixTest()
 }
