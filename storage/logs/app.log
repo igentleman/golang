@@ -1,6 +1,9 @@
-2022/04/16 17:20:30 {"callers":["D:/golang/src/goproject/main/ginweb/index.go: 27 main.init.0"],"level":"info","message":"去你妈的","time":1650100830228110600}
-2022/04/16 17:38:29 {"callers":["D:/golang/src/goproject/main/ginweb/index.go: 27 main.init.0"],"level":"info","message":"去你妈的","time":1650101909607922700}
-2022/04/16 17:39:18 {"callers":["D:/golang/src/goproject/main/ginweb/index.go: 27 main.init.0"],"level":"info","message":"去你妈的","time":1650101958720662600}
-2022/04/16 17:39:50 {"callers":["D:/golang/src/goproject/main/ginweb/index.go: 27 main.init.0"],"level":"info","message":"去你妈的","time":1650101990381269100}
-2022/04/16 17:41:30 {"callers":["D:/golang/src/goproject/main/ginweb/index.go: 27 main.init.0"],"level":"info","message":"去你妈的","time":1650102090589195000}
-2022/04/16 17:42:30 {"callers":["D:/golang/src/goproject/main/ginweb/index.go: 27 main.init.0"],"level":"info","message":"去你妈的","time":1650102150929586600}
+2022/04/22 13:38:15 {"callers":["D:/golang/src/goproject/main/ginweb/main.go: 27 main.init.0"],"level":"error","message":"Id为必填字段","time":1650605895587725300}
+2022/04/22 13:40:07 {"callers":["D:/golang/src/goproject/main/ginweb/main.go: 27 main.init.0"],"level":"error","message":"Id为必填字段","time":1650606007263858500}
+2022/04/22 13:42:00 {"callers":["D:/golang/src/goproject/main/ginweb/main.go: 27 main.init.0"],"level":"error","message":"Id为必填字段","time":1650606120095239100}
+2022/04/22 13:46:14 {"callers":["D:/golang/src/goproject/main/ginweb/main.go: 27 main.init.0"],"level":"error","message":"Id为必填字段","time":1650606374024797600}
+2022/04/22 13:46:32 {"callers":["D:/golang/src/goproject/main/ginweb/main.go: 27 main.init.0"],"level":"error","message":"Id为必填字段","time":1650606392092395900}
+2022/04/22 13:46:36 {"callers":["D:/golang/src/goproject/main/ginweb/main.go: 27 main.init.0"],"level":"error","message":"Id为必填字段","time":1650606396315157100}
+2022/04/22 13:46:37 {"callers":["D:/golang/src/goproject/main/ginweb/main.go: 27 main.init.0"],"level":"error","message":"Id为必填字段","time":1650606397087782400}
+2022/04/22 13:46:58 {"callers":["D:/golang/src/goproject/main/ginweb/main.go: 27 main.init.0"],"level":"error","message":"Id为必填字段","time":1650606418305203100}
+2022/04/22 13:47:12 {"callers":["D:/golang/src/goproject/main/ginweb/main.go: 27 main.init.0"],"level":"error","message":"Id为必填字段","time":1650606432671524900}

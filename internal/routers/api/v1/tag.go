@@ -2,8 +2,30 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	"goproject/main/ginweb/global"
+	"goproject/main/ginweb/internal/service"
 	"goproject/main/ginweb/pkg/app"
+	"goproject/main/ginweb/pkg/errcode"
 )
+
+type TagCreatQuery struct {
+	Name   string `from:"name" binding:"min=1,max=100"`
+	Status uint8  `from:"status,default=1" binding:"oneof=0 1"`
+}
+
+type TagDelQuery struct {
+	Id string `from:"id" binding:"required,gte=1"`
+}
+
+type TagUpdateQuery struct {
+	Name   string `from:"name" binding:"required,min=1,max=100"`
+	Status string `from:"status" binding:"required,oneof=0 1"`
+	Id     string `from:"id" binding:"required,gte=1"`
+}
+
+type TagGetQuery struct {
+	Id string `from:"id" binding:"required,gte=1"`
+}
 
 type Tag struct {
 }
@@ -47,7 +69,22 @@ func (this *Tag) TagUpdate(r *gin.Context) {
 
 }
 
+// @Summary 标签列表
+// @Produce json
+// @Param page query int true "页码"
+// @Success 200 {object} model.Tag "成功"
+// @Failure 400 {object} errcode.Error "请求错误"
+// @Failure 500 {object} errcode.Error "内部错误"
+// @Router /api/v1/tag{id} [delete]
 func (this *Tag) TagGet(r *gin.Context) {
-	app.NewResponse(r).ToResponse("内部服务器错误")
+	tag := service.TagGetQuery{}
+	response := app.NewResponse(r)
+	res, err := app.BindAndValid(r, &tag)
+	if !res {
+		global.Logger.Error(err)
+		response.ToErrorResponse(errcode.InvalidParams)
+		return
+	}
+	app.NewResponse(r).ToResponse(tag)
 	return
 }
