@@ -2,10 +2,8 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"goproject/main/ginweb/global"
-	"goproject/main/ginweb/internal/service"
-	"goproject/main/ginweb/pkg/app"
-	"goproject/main/ginweb/pkg/errcode"
+	"goproject/main/ginweb/internal/dao"
+	"log"
 )
 
 type TagCreatQuery struct {
@@ -77,14 +75,14 @@ func (this *Tag) TagUpdate(r *gin.Context) {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tag{id} [delete]
 func (this *Tag) TagGet(r *gin.Context) {
-	tag := service.TagGetQuery{}
-	response := app.NewResponse(r)
-	res, err := app.BindAndValid(r, &tag)
-	if !res {
-		global.Logger.Error(err)
-		response.ToErrorResponse(errcode.InvalidParams)
+	//list, err := dao.New().TagList("", 100, 2, 10)
+	err := dao.New().TagDel(8)
+	if err != nil {
+		log.Println("错误提示：", err)
 		return
 	}
-	app.NewResponse(r).ToResponse(tag)
-	return
+	//for _, v := range list {
+	//	fmt.Println(v)
+	//}
+
 }

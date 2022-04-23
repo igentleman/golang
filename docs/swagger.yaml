@@ -1,0 +1,106 @@
+definitions:
+  errcode.Error:
+    properties:
+      code:
+        type: integer
+      details:
+        items:
+          type: string
+        type: array
+      msg:
+        type: string
+    type: object
+  model.Model:
+    properties:
+      created_by:
+        type: string
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      id:
+        description: 设置ID为默认主键 返回json数据格式为id
+        type: integer
+      is_del:
+        type: integer
+      modified_by:
+        type: string
+      modified_on:
+        type: integer
+    type: object
+  model.Tag:
+    properties:
+      model:
+        $ref: '#/definitions/model.Model'
+        type: object
+      name:
+        type: string
+      status:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: Go 语言编程之旅：一起用 Go 做项目
+  license: {}
+  title: 博客系统
+  version: "1.0"
+paths:
+  /api/v1/tag:
+    get:
+      parameters:
+      - description: 标签名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 标签状态
+        in: query
+        name: Status
+        required: true
+        type: integer
+      - description: 创建人
+        in: query
+        name: created_by
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Tag'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 创建标签
+  /api/v1/tag{id}:
+    delete:
+      parameters:
+      - description: 页码
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.Tag'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/errcode.Error'
+      summary: 标签列表
+swagger: "2.0"
