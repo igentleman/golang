@@ -38,9 +38,9 @@ func (t *Dao) TagDel(id uint) error {
 	return tag.TagDel(t.Engine)
 }
 
-func (t *Dao) TagUpdate(name string, state uint8, modifiedOn string) error {
+func (t *Dao) TagUpdate(id uint, name string, state uint8, modifiedOn string) error {
 	tag := model.Tag{
-		Model: &model.Model{ModifiedBy: modifiedOn},
+		Model: &model.Model{ID: id, ModifiedBy: modifiedOn},
 		Name:  name,
 		State: state,
 	}

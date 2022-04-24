@@ -6,7 +6,7 @@ import (
 	"github.com/go-playground/locales/en"
 	"github.com/go-playground/locales/zh"
 	"github.com/go-playground/locales/zh_Hant_TW"
-	"github.com/go-playground/universal-translator"
+	ut "github.com/go-playground/universal-translator"
 	validator "github.com/go-playground/validator/v10"
 	en_translations "github.com/go-playground/validator/v10/translations/en"
 	zh_translations "github.com/go-playground/validator/v10/translations/zh"
@@ -16,6 +16,9 @@ func Translations() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		uni := ut.New(en.New(), zh.New(), zh_Hant_TW.New())
 		locale := c.GetHeader("locale")
+		if locale == "" {
+			locale = "zh"
+		}
 		trans, _ := uni.GetTranslator(locale)
 		v, ok := binding.Validator.Engine().(*validator.Validate)
 		if ok {

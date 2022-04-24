@@ -1,12 +1,13 @@
 package routers
 
 import (
+	"goproject/main/ginweb/internal/middleware"
+	v1 "goproject/main/ginweb/internal/routers/api/v1"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-programming-tour-book/blog-service/docs"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	"goproject/main/ginweb/internal/middleware"
-	"goproject/main/ginweb/internal/routers/api/v1"
 )
 
 func NewRoutes() *gin.Engine {

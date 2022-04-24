@@ -1,8 +1,10 @@
 package v1
 
 import (
-	"goproject/main/ginweb/internal/dao"
-	"log"
+	"goproject/main/ginweb/global"
+	"goproject/main/ginweb/internal/service"
+	"goproject/main/ginweb/pkg/app"
+	"goproject/main/ginweb/pkg/errcode"
 
 	"github.com/gin-gonic/gin"
 )
@@ -76,12 +78,21 @@ func (t *Tag) TagUpdate(r *gin.Context) {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tag{id} [delete]
 func (t *Tag) TagGet(r *gin.Context) {
-	// list, err := dao.New().TagList("", 100, 2, 10)
-	err := dao.New().TagDel(8)
-	if err != nil {
-		log.Println("错误提示：", err)
+	param := service.TagGetQuery{}
+	response := app.NewResponse(r)
+	b, err := app.BindAndValid(r, &param)
+	if !b {
+		global.Logger.Errorf("参数绑定出错，详情：", err)
+		response.ToErrorResponse(errcode.ErrorGetTagListFail.WithDetails(err.Errors()...))
 		return
 	}
+
+	// list, err := dao.New().TagList("", 100, 2, 10)
+	// err := dao.New().TagDel(8)
+	// if err != nil {
+	// 	log.Println("错误提示：", err)
+	// 	return
+	// }
 	// for _, v := range list {
 	// 	fmt.Println(v)
 	// }

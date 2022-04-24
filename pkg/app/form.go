@@ -1,10 +1,11 @@
 package app
 
 import (
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	ut "github.com/go-playground/universal-translator"
 	val "github.com/go-playground/validator/v10"
-	"strings"
 )
 
 type ValidError struct {

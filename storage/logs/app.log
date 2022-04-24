@@ -1,0 +1,6 @@
+2022/04/24 17:39:38 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Key: 'TagGetQuery.Name' Error:Field validation for 'Name' failed on the 'min' tag,Key: 'TagGetQuery.State' Error:Field validation for 'State' failed on the 'required' tag)","time":1650793178447933800}
+2022/04/24 17:43:08 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793388850892600}
+2022/04/24 17:43:28 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793408894164100}
+2022/04/24 17:44:44 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793484514359600}
+2022/04/24 17:46:24 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793584435110200}
+2022/04/24 17:47:03 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793623606330100}
