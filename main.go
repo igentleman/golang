@@ -1,7 +1,6 @@
 package main
 
 import (
-	"gopkg.in/natefinch/lumberjack.v2"
 	"goproject/main/ginweb/global"
 	"goproject/main/ginweb/internal/model"
 	"goproject/main/ginweb/internal/routers"
@@ -10,6 +9,8 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func init() {

@@ -1,9 +1,10 @@
 package v1
 
 import (
-	"github.com/gin-gonic/gin"
 	"goproject/main/ginweb/internal/dao"
 	"log"
+
+	"github.com/gin-gonic/gin"
 )
 
 type TagCreatQuery struct {
@@ -41,7 +42,7 @@ func NewTag() *Tag {
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tag [get]
-func (this *Tag) TagCreat(r *gin.Context) {
+func (t *Tag) TagCreat(r *gin.Context) {
 
 }
 
@@ -52,7 +53,7 @@ func (this *Tag) TagCreat(r *gin.Context) {
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tag{id} [delete]
-func (this *Tag) TagDelete(r *gin.Context) {
+func (t *Tag) TagDelete(r *gin.Context) {
 
 }
 
@@ -63,7 +64,7 @@ func (this *Tag) TagDelete(r *gin.Context) {
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tag{id} [delete]
-func (this *Tag) TagUpdate(r *gin.Context) {
+func (t *Tag) TagUpdate(r *gin.Context) {
 
 }
 
@@ -74,15 +75,14 @@ func (this *Tag) TagUpdate(r *gin.Context) {
 // @Failure 400 {object} errcode.Error "请求错误"
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tag{id} [delete]
-func (this *Tag) TagGet(r *gin.Context) {
-	//list, err := dao.New().TagList("", 100, 2, 10)
+func (t *Tag) TagGet(r *gin.Context) {
+	// list, err := dao.New().TagList("", 100, 2, 10)
 	err := dao.New().TagDel(8)
 	if err != nil {
 		log.Println("错误提示：", err)
 		return
 	}
-	//for _, v := range list {
-	//	fmt.Println(v)
-	//}
-
+	// for _, v := range list {
+	// 	fmt.Println(v)
+	// }
 }

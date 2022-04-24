@@ -2,12 +2,13 @@ package model
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"goproject/main/ginweb/global"
 	"goproject/main/ginweb/pkg/setting"
 	"log"
 	"time"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 type Model struct {
@@ -34,8 +35,8 @@ func NewDBEngine(dbConfig *setting.DatabaseSettingS) (*gorm.DB, error) {
 
 	//自定义model回调
 	db.Callback().Create().Replace("gorm:update_time_stamp", createTimeStampFormCreateCallback)
-	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
 	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampFormCreateCallback)
+	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
 
 	db.DB().SetMaxIdleConns(dbConfig.MaxIdleConns)
 	db.DB().SetMaxOpenConns(dbConfig.MaxOpenConns)
@@ -64,17 +65,17 @@ func updateTimeStampFormCreateCallback(scope *gorm.Scope) { //更新记录时更
 func deleteCallback(scope *gorm.Scope) { //在删除前判断是否存在DeleteOn与isDel
 	if !scope.HasError() {
 		var extraOption string
-		str, ok := scope.Get("gorm:delete_option") //判断是否设置gorm:update_column属性
-		if ok {
+		if str, ok := scope.Get("gorm:delete_option"); ok {
 			extraOption = fmt.Sprint(str)
 		}
-		deleteField, deleteOk := scope.FieldByName("DeleteOn") //判断是否存在DeleteOn字段
-		isDelField, isDelOk := scope.FieldByName("IsDel")      //判断是否存在DeleteOn字段
-		if !scope.Search.Unscoped && deleteOk && isDelOk {
+		deletedOnField, hasDeletedOnField := scope.FieldByName("DeletedOn")
+		isDelField, hasIsDelField := scope.FieldByName("IsDel")
+		if !scope.Search.Unscoped && hasDeletedOnField && hasIsDelField {
 			now := time.Now().Unix()
-			scope.Raw(fmt.Sprintf("update %v set %v=%v, %v=%v%v%v ",
+			scope.Raw(fmt.Sprintf(
+				"UPDATE %v SET %v=%v,%v=%v%v%v",
 				scope.QuotedTableName(),
-				scope.Quote(deleteField.DBName),
+				scope.Quote(deletedOnField.DBName),
 				scope.AddToVars(now),
 				scope.Quote(isDelField.DBName),
 				scope.AddToVars(1),
@@ -82,7 +83,8 @@ func deleteCallback(scope *gorm.Scope) { //在删除前判断是否存在DeleteO
 				addExtraSpace(extraOption),
 			)).Exec()
 		} else {
-			scope.Raw(fmt.Sprintf("delete from %v%v%v",
+			scope.Raw(fmt.Sprintf(
+				"DELETE FROM %v%v%v",
 				scope.QuotedTableName(),
 				addExtraSpace(scope.CombinedConditionSql()),
 				addExtraSpace(extraOption),

@@ -10,50 +10,46 @@ type Tag struct {
 	State uint8  `json:"state"`
 }
 
-func (this *Tag) TableName() string { //关联表名
+func (t *Tag) TableName() string { //关联表名
 	return "blog_tag"
 }
 
-func (this Tag) TagList(db *gorm.DB, page, size int) ([]*Tag, error) {
-	var t []*Tag
+func (t Tag) TagList(db *gorm.DB, page, size int) ([]*Tag, error) {
+	var tag []*Tag
 	var err error
-	db.Limit(size).Select("name").Offset(page).Find(&t)
 	if page > 0 && size > 0 {
 		db = db.Offset(page).Limit(size)
 	}
-	if this.Name != "" {
-		db = db.Model(this).Where("name = ?", this.Name)
+	if t.Name != "" {
+		db = db.Model(t).Where("name = ?", t.Name)
 	}
-	db = db.Model(this).Where("state = ?", this.State)
-	err = db.Model(this).Where("is_del = 0").Find(&t).Error
+	db = db.Model(t).Where("state = ?", t.State)
+	err = db.Model(t).Where("is_del = 0").Find(&tag).Error
 	if err != nil {
 		return nil, err
 	}
-	return t, nil
+	return tag, nil
 }
 
-func (this *Tag) TagAdd(db *gorm.DB) error {
-	return db.Model(this).Create(this).Error
+func (t *Tag) TagAdd(db *gorm.DB) error {
+	return db.Model(t).Create(t).Error
 }
 
-func (this *Tag) TagDel(db *gorm.DB) error {
-	return db.Debug().Model(this).Where("id = ? and is_del = ?", this.Model.ID, 0).Delete(this).Error
-	//r := db.Debug().Model(this).Where("id = ? and is_del = ?", this.Model.ID, 0).Delete(this)
-	//fmt.Println(r)
-	//return nil
+func (t *Tag) TagDel(db *gorm.DB) error {
+	return db.Model(t).Where("id = ? and is_del = ?", t.Model.ID, 0).Delete(t).Error
 }
 
-func (this *Tag) TagUpdate(db *gorm.DB) error {
-	return db.Model(this).Where("id = ?", this.Model.ID).Update(this).Error
+func (t *Tag) TagUpdate(db *gorm.DB) error {
+	return db.Model(t).Where("id = ?", t.Model.ID).Update(t).Error
 }
 
-func (this *Tag) Count(db *gorm.DB) (int, error) {
+func (t *Tag) Count(db *gorm.DB) (int, error) {
 	var num int
-	if this.Name != "" {
-		db = db.Model(this).Where("name = ?", this.Name)
+	if t.Name != "" {
+		db = db.Model(t).Where("name = ?", t.Name)
 	}
-	db = db.Model(this).Where("state = ?", this.State)
-	err := db.Model(this).Where("is_del = ?", 0).Count(&num).Error
+	db = db.Model(t).Where("state = ?", t.State)
+	err := db.Model(t).Where("is_del = ?", 0).Count(&num).Error
 	if err != nil {
 		return 0, err
 	}
