@@ -1,7 +1,7 @@
 package model
 
 type Article struct {
-	Model         *Model
+	*Model
 	Title         string `json:"title"`
 	Desc          string `json:"desc"`
 	Content       string `json:"content"`

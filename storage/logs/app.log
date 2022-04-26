@@ -1,6 +1,10 @@
-2022/04/24 17:39:38 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Key: 'TagGetQuery.Name' Error:Field validation for 'Name' failed on the 'min' tag,Key: 'TagGetQuery.State' Error:Field validation for 'State' failed on the 'required' tag)","time":1650793178447933800}
-2022/04/24 17:43:08 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793388850892600}
-2022/04/24 17:43:28 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793408894164100}
-2022/04/24 17:44:44 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793484514359600}
-2022/04/24 17:46:24 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793584435110200}
-2022/04/24 17:47:03 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1650793623606330100}
+2022/04/26 15:24:59 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"CreatedBy为必填字段","time":1650957899240884300}
+2022/04/26 16:22:41 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误：0x103fb40","time":1650961361273724300}
+2022/04/26 16:25:33 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误：0x6cfb40","time":1650961533442722900}
+2022/04/26 16:28:31 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误：0xd6fc40","time":1650961711515630700}
+2022/04/26 16:29:26 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误：0x115fc40","time":1650961766116333400}
+2022/04/26 16:32:01 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"field:false","time":1650961921388238200}
+2022/04/26 16:32:59 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"field:false","time":1650961979489128900}
+2022/04/26 17:42:28 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"更新标签绑定出错，详情：%!(EXTRA app.ValidErrors=ModifiedOn为必填字段,Status为必填字段)","time":1650966148186144300}
+2022/04/26 17:44:26 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"更新标签绑定出错，详情：%!(EXTRA app.ValidErrors=ModifiedOn为必填字段)","time":1650966266888229200}
+2022/04/26 17:53:25 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=State为必填字段)","time":1650966805387862100}

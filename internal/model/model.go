@@ -34,8 +34,8 @@ func NewDBEngine(dbConfig *setting.DatabaseSettingS) (*gorm.DB, error) {
 	db.SingularTable(true)
 
 	//自定义model回调
-	db.Callback().Create().Replace("gorm:update_time_stamp", createTimeStampFormCreateCallback)
-	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampFormCreateCallback)
+	db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
+	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
 	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
 
 	db.DB().SetMaxIdleConns(dbConfig.MaxIdleConns)
@@ -43,31 +43,36 @@ func NewDBEngine(dbConfig *setting.DatabaseSettingS) (*gorm.DB, error) {
 	return db, nil
 }
 
-func createTimeStampFormCreateCallback(scope *gorm.Scope) { //创建记录时更新CreateOn字段
+func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
+	if _, ok := scope.Get("gorm:update_column"); !ok {
+		_ = scope.SetColumn("ModifiedOn", time.Now().Unix())
+	}
+}
+
+func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
 		nowTime := time.Now().Unix()
-		field, ok := scope.FieldByName("CreateOn") //判断是否存在createOn字段
-		if ok {
-			if field.IsBlank { //判断该字段是否为空
-				_ = field.Set(nowTime) //设置值
+		if createTimeField, ok := scope.FieldByName("CreatedOn"); ok {
+			if createTimeField.IsBlank {
+				_ = createTimeField.Set(nowTime)
+			}
+		}
+
+		if modifyTimeField, ok := scope.FieldByName("ModifiedOn"); ok {
+			if modifyTimeField.IsBlank {
+				_ = modifyTimeField.Set(nowTime)
 			}
 		}
 	}
 }
 
-func updateTimeStampFormCreateCallback(scope *gorm.Scope) { //更新记录时更新ModifiedOn字段
-	_, ok := scope.Get("gorm:update_column") //判断是否设置gorm:update_column属性
-	if !ok {
-		_ = scope.SetColumn("ModifiedOn", time.Now().Unix())
-	}
-}
-
-func deleteCallback(scope *gorm.Scope) { //在删除前判断是否存在DeleteOn与isDel
+func deleteCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
 		var extraOption string
 		if str, ok := scope.Get("gorm:delete_option"); ok {
 			extraOption = fmt.Sprint(str)
 		}
+
 		deletedOnField, hasDeletedOnField := scope.FieldByName("DeletedOn")
 		isDelField, hasIsDelField := scope.FieldByName("IsDel")
 		if !scope.Search.Unscoped && hasDeletedOnField && hasIsDelField {
@@ -79,22 +84,22 @@ func deleteCallback(scope *gorm.Scope) { //在删除前判断是否存在DeleteO
 				scope.AddToVars(now),
 				scope.Quote(isDelField.DBName),
 				scope.AddToVars(1),
-				addExtraSpace(scope.CombinedConditionSql()),
-				addExtraSpace(extraOption),
+				addExtraSpaceIfExist(scope.CombinedConditionSql()),
+				addExtraSpaceIfExist(extraOption),
 			)).Exec()
 		} else {
 			scope.Raw(fmt.Sprintf(
 				"DELETE FROM %v%v%v",
 				scope.QuotedTableName(),
-				addExtraSpace(scope.CombinedConditionSql()),
-				addExtraSpace(extraOption),
+				addExtraSpaceIfExist(scope.CombinedConditionSql()),
+				addExtraSpaceIfExist(extraOption),
 			)).Exec()
 		}
 	}
 }
 
-func addExtraSpace(str string) string {
-	if str == "" {
+func addExtraSpaceIfExist(str string) string {
+	if str != "" {
 		return " " + str
 	}
 	return ""

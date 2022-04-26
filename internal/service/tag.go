@@ -18,7 +18,7 @@ type TagDelQuery struct {
 type TagUpdateQuery struct {
 	Name       string `form:"name" binding:"required,min=1,max=100"`
 	ModifiedOn string `form:"modified_on" binding:"required"`
-	Status     uint8  `form:"status" binding:"required,oneof=0 1"`
+	State      uint8  `form:"state" binding:"required,oneof=0 1"`
 	Id         uint   `form:"id" binding:"required,gte=1"`
 }
 
@@ -45,7 +45,7 @@ func (s *Service) TagDel(param *TagDelQuery) error {
 }
 
 func (s *Service) TagUpdate(param *TagUpdateQuery) error {
-	return s.Dao.TagUpdate(param.Id, param.Name, param.Status, param.ModifiedOn)
+	return s.Dao.TagUpdate(param.Id, param.Name, param.State, param.ModifiedOn)
 }
 
 func (s *Service) TagGet(param *TagGetQuery, pager *app.Pager) ([]*model.Tag, error) {

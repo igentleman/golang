@@ -45,7 +45,23 @@ func NewTag() *Tag {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tag [get]
 func (t *Tag) TagCreat(r *gin.Context) {
-
+	creatStruct := service.TagCreatQuery{}
+	creatStruct.CreatedBy = "刘粤新"
+	response := app.NewResponse(r)
+	b, err := app.BindAndValid(r, &creatStruct)
+	if !b {
+		global.Logger.Errorf(err.Error())
+		response.ToErrorResponse(errcode.ErrorCreateTagFail.WithDetails(err.Errors()...))
+		return
+	}
+	s := service.New(r.Request.Context())
+	e := s.TagCreate(&creatStruct)
+	if e != nil {
+		global.Logger.Errorf("创建标签失败，失败原因：%v", e)
+		response.ToErrorResponse(errcode.ErrorCreateTagFail.WithDetails(e.Error()))
+		return
+	}
+	response.ToResponse(errcode.Success)
 }
 
 // @Summary 删除标签
@@ -56,7 +72,22 @@ func (t *Tag) TagCreat(r *gin.Context) {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tag{id} [delete]
 func (t *Tag) TagDelete(r *gin.Context) {
-
+	delStruct := service.TagDelQuery{}
+	response := app.NewResponse(r)
+	b, e := app.BindAndValid(r, &delStruct)
+	if !b {
+		global.Logger.Errorf("绑定标签失败，失败原因：%v", e)
+		response.ToErrorResponse(errcode.ErrorDeleteTagFail)
+		return
+	}
+	s := service.New(r.Request.Context())
+	err := s.TagDel(&delStruct)
+	if e != nil {
+		global.Logger.Errorf("删除标签失败，失败原因：%v", err)
+		response.ToErrorResponse(errcode.ErrorDeleteTagFail)
+		return
+	}
+	response.ToResponse(errcode.Success)
 }
 
 // @Summary 更新标签
@@ -67,7 +98,23 @@ func (t *Tag) TagDelete(r *gin.Context) {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tag{id} [delete]
 func (t *Tag) TagUpdate(r *gin.Context) {
-
+	upStruct := service.TagUpdateQuery{}
+	upStruct.ModifiedOn = "刘先生"
+	response := app.NewResponse(r)
+	b, err := app.BindAndValid(r, &upStruct)
+	if !b {
+		global.Logger.Errorf("更新标签绑定出错，详情：", err)
+		response.ToErrorResponse(errcode.ErrorGetTagListFail.WithDetails(err.Errors()...))
+		return
+	}
+	s := service.New(r.Request.Context())
+	e := s.TagUpdate(&upStruct)
+	if e != nil {
+		global.Logger.Errorf("更新标签失败！err=", e)
+		response.ToErrorResponse(errcode.ErrorUpdateTagFail)
+		return
+	}
+	response.ToResponse(errcode.Success)
 }
 
 // @Summary 标签列表
@@ -86,14 +133,22 @@ func (t *Tag) TagGet(r *gin.Context) {
 		response.ToErrorResponse(errcode.ErrorGetTagListFail.WithDetails(err.Errors()...))
 		return
 	}
-
-	// list, err := dao.New().TagList("", 100, 2, 10)
-	// err := dao.New().TagDel(8)
-	// if err != nil {
-	// 	log.Println("错误提示：", err)
-	// 	return
-	// }
-	// for _, v := range list {
-	// 	fmt.Println(v)
-	// }
+	s := service.New(r.Request.Context())
+	pager := app.Pager{
+		Page:     app.GetPage(r),
+		PageSize: app.GetPageSize(r),
+	}
+	num, eNum := s.TagCount(&service.TagCount{Name: param.Name, State: param.State})
+	if eNum != nil {
+		global.Logger.Errorf("获取tag总数出错，错误原因：%v", eNum)
+		response.ToErrorResponse(errcode.ErrorCountTagFail.WithDetails(eNum.Error()))
+		return
+	}
+	tagList, e := s.TagGet(&param, &pager)
+	if e != nil {
+		global.Logger.Errorf("获取tag list失败，错误原因：%v", e)
+		response.ToErrorResponse(errcode.ErrorGetTagListFail.WithDetails(e.Error()))
+		return
+	}
+	response.ToResponseList(tagList, num)
 }
