@@ -23,8 +23,10 @@ type TagUpdateQuery struct {
 }
 
 type TagGetQuery struct {
-	Name  string `form:"name" binding:"min=1,max=100"`
-	State uint8  `form:"state" binding:"required,oneof=0 1"`
+	// Name  string `form:"name" binding:"min=1,max=100"`
+	// State uint8  `form:"state" binding:"required,oneof=0 1"`
+	Name  string `form:"name"`
+	State uint8  `form:"state"`
 }
 
 type TagCount struct {

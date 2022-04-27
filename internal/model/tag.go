@@ -1,6 +1,8 @@
 package model
 
 import (
+	"goproject/main/ginweb/pkg/app"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -18,7 +20,8 @@ func (t Tag) TagList(db *gorm.DB, page, size int) ([]*Tag, error) {
 	var tag []*Tag
 	var err error
 	if page > 0 && size > 0 {
-		db = db.Offset(page).Limit(size)
+		db = db.Offset(app.GetPageOffset(page, size)).Limit(size)
+		// db = db.Offset(size).Limit(size)
 	}
 	if t.Name != "" {
 		db = db.Model(t).Where("name = ?", t.Name)

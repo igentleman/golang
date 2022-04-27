@@ -8,3 +8,7 @@
 2022/04/26 17:42:28 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"更新标签绑定出错，详情：%!(EXTRA app.ValidErrors=ModifiedOn为必填字段,Status为必填字段)","time":1650966148186144300}
 2022/04/26 17:44:26 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"更新标签绑定出错，详情：%!(EXTRA app.ValidErrors=ModifiedOn为必填字段)","time":1650966266888229200}
 2022/04/26 17:53:25 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=State为必填字段)","time":1650966805387862100}
+2022/04/26 18:26:31 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"pager：%!(EXTRA app.Pager={1 10 0})","time":1650968791808820000}
+2022/04/26 18:30:10 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=State为必填字段,Name长度必须至少为1个字符)","time":1650969010838067900}
+2022/04/27 09:37:49 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1651023469727635200}
+2022/04/27 11:15:56 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"绑定创建文章结构体失败，错误原因：CoverImageUrl为必填字段,CreateBy为必填字段","time":1651029356511825200}
