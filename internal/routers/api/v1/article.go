@@ -83,10 +83,29 @@ func (t *Article) ArticleGet(r *gin.Context) {
 		response.ToErrorResponse(errcode.ErrorGetArticleListFail)
 		return
 	}
+	global.Logger.Errorf("%v,asdf", s)
 	pager := app.Pager{
 		Page:     app.GetPage(r),
 		PageSize: app.GetPageSize(r),
 	}
 	d := service.New(r.Request.Context())
-	d.ArticleGet(&s, &pager)
+	// sc := service.ArticleCount{
+	// 	Id:    s.Id,
+	// 	Title: s.Title,
+	// 	State: s.State,
+	// }
+	i, err := d.ArticleCount(&s)
+	if err != nil {
+		global.Logger.Errorf("%v,err=%v", errcode.ErrorCountArticleFail, err)
+		response.ToErrorResponse(errcode.ErrorCountArticleFail)
+		return
+	}
+	pager.TotalRows = i
+	articleList, err := d.ArticleGet(&s, &pager)
+	if err != nil {
+		global.Logger.Errorf("%v,err=%v", errcode.ErrorGetArticleListFail, err)
+		response.ToErrorResponse(errcode.ErrorGetArticleListFail)
+		return
+	}
+	response.ToResponseList(articleList, i)
 }

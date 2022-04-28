@@ -29,15 +29,15 @@ type ArticleUpdateQuery struct {
 }
 
 type ArticleGetQuery struct {
-	Id    uint   `form:"id" binding:"gte=1"`
-	Title string `form:"id" binding:"min=1,max=100"`
-	State uint8  `form:"state,default=1" binding:"oneof=1 0"`
+	Id    uint   `form:"id" binding:""`
+	Title string `form:"title" binding:"max=100"`
+	State uint8  `form:"state,default=1" binding:""`
 }
 
 type ArticleCount struct {
-	Id    uint   `form:"id" binding:"gte=1"`
-	Title string `form:"id" binding:"min=1,max=100"`
-	State uint8  `form:"state,default=1" binding:"oneof=1 0"`
+	Id    uint   `form:"id" binding:""`
+	Title string `form:"title" binding:"max=100"`
+	State uint8  `form:"state,default=1" binding:""`
 }
 
 func (s *Service) ArticleAdd(a *ArticleCreatQuery) error {
@@ -56,6 +56,6 @@ func (s *Service) ArticleGet(a *ArticleGetQuery, pager *app.Pager) ([]*model.Art
 	return s.Dao.GetArticle(a.Id, a.Title, a.State, pager.Page, pager.PageSize)
 }
 
-func (s *Service) ArticleCount(a *ArticleCount) (int, error) {
+func (s *Service) ArticleCount(a *ArticleGetQuery) (int, error) {
 	return s.Dao.CountArticle(a.Id, a.Title, a.State)
 }

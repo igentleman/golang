@@ -40,12 +40,12 @@ func (a *Article) ArticleGet(db *gorm.DB, page, page_size int) ([]*Article, erro
 		db = db.Where("id = ?", a.ID)
 	}
 	if a.Title != "" {
-		db = db.Where("title = ?", a.Title)
+		db = db.Where("title like ?", "%"+a.Title+"%")
 	}
 	if a.State != 0 {
 		db = db.Where("state = ?", a.State)
 	}
-	err := db.Model(a).Find(articles).Error
+	err := db.Model(a).Find(&articles).Error
 	if err != nil {
 		return nil, err
 	}
@@ -58,12 +58,12 @@ func (a *Article) ArticleCount(db *gorm.DB) (int, error) {
 		db = db.Where("id = ?", a.ID)
 	}
 	if a.Title != "" {
-		db = db.Where("title = ?", a.Title)
+		db = db.Where("title like ?", "%"+a.Title+"%")
 	}
 	if a.State != 0 {
 		db = db.Where("state = ?", a.State)
 	}
-	err := db.Model(a).Count(articlesNum).Error
+	err := db.Model(a).Count(&articlesNum).Error
 	if err != nil {
 		return 0, err
 	}

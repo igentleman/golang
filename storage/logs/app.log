@@ -1,14 +1,9 @@
-2022/04/26 15:24:59 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"CreatedBy为必填字段","time":1650957899240884300}
-2022/04/26 16:22:41 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误：0x103fb40","time":1650961361273724300}
-2022/04/26 16:25:33 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误：0x6cfb40","time":1650961533442722900}
-2022/04/26 16:28:31 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误：0xd6fc40","time":1650961711515630700}
-2022/04/26 16:29:26 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误：0x115fc40","time":1650961766116333400}
-2022/04/26 16:32:01 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"field:false","time":1650961921388238200}
-2022/04/26 16:32:59 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"field:false","time":1650961979489128900}
-2022/04/26 17:42:28 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"更新标签绑定出错，详情：%!(EXTRA app.ValidErrors=ModifiedOn为必填字段,Status为必填字段)","time":1650966148186144300}
-2022/04/26 17:44:26 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"更新标签绑定出错，详情：%!(EXTRA app.ValidErrors=ModifiedOn为必填字段)","time":1650966266888229200}
-2022/04/26 17:53:25 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=State为必填字段)","time":1650966805387862100}
-2022/04/26 18:26:31 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"pager：%!(EXTRA app.Pager={1 10 0})","time":1650968791808820000}
-2022/04/26 18:30:10 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=State为必填字段,Name长度必须至少为1个字符)","time":1650969010838067900}
-2022/04/27 09:37:49 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"参数绑定出错，详情：%!(EXTRA app.ValidErrors=Name长度必须至少为1个字符,State为必填字段)","time":1651023469727635200}
-2022/04/27 11:15:56 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"绑定创建文章结构体失败，错误原因：CoverImageUrl为必填字段,CreateBy为必填字段","time":1651029356511825200}
+2022/04/28 11:11:28 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"绑定失败，err:Title长度必须至少为1个字符,Id必须大于或等于1","time":1651115488823968400}
+2022/04/28 11:18:35 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误码：20020005, 错误信息：统计文章失败,err=sql: Scan error on column index 0, name \"count(*)\": destination not a pointer","time":1651115915544093800}
+2022/04/28 11:27:03 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"count=4","time":1651116423727796700}
+2022/04/28 11:43:48 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"{0  1},asdf","time":1651117428723036800}
+2022/04/28 11:49:47 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"{0  1},asdf","time":1651117787452305500}
+2022/04/28 11:50:39 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"{0 刘从华 1},asdf","time":1651117839770458200}
+2022/04/28 13:35:41 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"{0 刘从华 1},asdf","time":1651124141953042800}
+2022/04/28 13:35:41 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"错误码：20020005, 错误信息：统计文章失败,err=sql: expected 1 arguments, got 2","time":1651124141959059100}
+2022/04/28 13:37:32 {"callers":["E:/golang/src/golang/main.go: 28 main.init.0"],"level":"error","message":"{0 刘从华 1},asdf","time":1651124252092986800}
