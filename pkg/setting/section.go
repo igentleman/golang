@@ -30,6 +30,13 @@ type DatabaseSettingS struct {
 	MaxOpenConns int
 }
 
+type AppUploadSettingS struct {
+	UploadSavePath       string
+	UploadServerUrl      string
+	UploadImageMaxSize   int
+	UploadImageAllowExts []string
+}
+
 func (s *Setting) ReadSection(k string, v interface{}) error {
 	err := s.vp.UnmarshalKey(k, v)
 	if err != nil {
