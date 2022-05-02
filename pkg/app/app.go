@@ -1,9 +1,10 @@
 package app
 
 import (
-	"github.com/gin-gonic/gin"
 	"goproject/main/ginweb/pkg/errcode"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Response struct {

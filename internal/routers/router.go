@@ -1,8 +1,11 @@
 package routers
 
 import (
+	"goproject/main/ginweb/global"
 	"goproject/main/ginweb/internal/middleware"
+	"goproject/main/ginweb/internal/routers/api"
 	v1 "goproject/main/ginweb/internal/routers/api/v1"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-programming-tour-book/blog-service/docs"
@@ -13,6 +16,11 @@ import (
 func NewRoutes() *gin.Engine {
 	r := gin.Default()
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	u := api.NewUpload()
+	r.POST("/upload/file", u.UploadFile)
+	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
+	r.POST("/auth", api.GetAuth)
+	// r.StaticFS("/static1", http.Dir("storage/12"))
 	v := r.Group("/api/v1", middleware.Translations())
 	{
 		//tag
