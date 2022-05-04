@@ -34,9 +34,9 @@ JWT:
 Email:
  Host: smtp.163.com
  Port: 25
- UserName: zxczzw1@163.com
- Password: zxczzw12341
+ UserName:
+ Password:
  IsSSL: true
- From: zxczzw1@163.com
+ From:
  To:
-  - 1287807632@qq.com
+  - 

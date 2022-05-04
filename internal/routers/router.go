@@ -22,13 +22,6 @@ var methodLimiters = limiter.NewMethodLimiter().AddBuckets(limiter.LimiterBucket
 	Quantum:      1,
 })
 
-var ipLimiters = limiter.NewIPLimiter().AddBuckets(limiter.LimiterBucketRule{
-	Key:          "ip",
-	FillInterval: time.Second * 10,
-	Capacity:     1,
-	Quantum:      1,
-})
-
 func NewRoutes() *gin.Engine {
 	r := gin.New()
 	if global.ServerSetting.RunMode == "debug" {
@@ -38,8 +31,8 @@ func NewRoutes() *gin.Engine {
 		r.Use(middleware.AccessLog())
 		r.Use(middleware.Recovery())
 	}
-	// r.Use(middleware.RateLimiter(methodLimiters))
-	r.Use(middleware.RateLimiter(ipLimiters))
+	r.Use(middleware.RateLimiter(methodLimiters))
+	// r.Use(middleware.RateLimiter(ipLimiters))
 	r.Use(middleware.Translations())
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	u := api.NewUpload()
