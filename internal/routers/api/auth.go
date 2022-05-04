@@ -24,8 +24,10 @@ func GetAuth(r *gin.Context) {
 	}
 	token, err := app.GenerateToken(s.AppKey, s.AppSecret)
 	if err != nil {
-		response.ToErrorResponse(errcode.UnauthorizedTokenGenerate)
+		response.ToErrorResponse(errcode.UnauthorizedTokenGenerate.WithDetails(err.Error()))
 		return
 	}
-	response.ToResponse(errcode.Success.WithDetails(token))
+	response.ToResponse(gin.H{
+		"token": token,
+	})
 }

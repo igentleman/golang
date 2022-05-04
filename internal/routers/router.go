@@ -5,7 +5,9 @@ import (
 	"goproject/main/ginweb/internal/middleware"
 	"goproject/main/ginweb/internal/routers/api"
 	v1 "goproject/main/ginweb/internal/routers/api/v1"
+	"goproject/main/ginweb/pkg/limiter"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-programming-tour-book/blog-service/docs"
@@ -13,15 +15,40 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
+var methodLimiters = limiter.NewMethodLimiter().AddBuckets(limiter.LimiterBucketRule{
+	Key:          "/auth",
+	FillInterval: time.Second * 10,
+	Capacity:     1,
+	Quantum:      1,
+})
+
+var ipLimiters = limiter.NewIPLimiter().AddBuckets(limiter.LimiterBucketRule{
+	Key:          "ip",
+	FillInterval: time.Second * 10,
+	Capacity:     1,
+	Quantum:      1,
+})
+
 func NewRoutes() *gin.Engine {
-	r := gin.Default()
+	r := gin.New()
+	if global.ServerSetting.RunMode == "debug" {
+		r.Use(gin.Logger())
+		r.Use(gin.Recovery())
+	} else {
+		r.Use(middleware.AccessLog())
+		r.Use(middleware.Recovery())
+	}
+	// r.Use(middleware.RateLimiter(methodLimiters))
+	r.Use(middleware.RateLimiter(ipLimiters))
+	r.Use(middleware.Translations())
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	u := api.NewUpload()
 	r.POST("/upload/file", u.UploadFile)
 	r.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 	r.POST("/auth", api.GetAuth)
 	// r.StaticFS("/static1", http.Dir("storage/12"))
-	v := r.Group("/api/v1", middleware.Translations())
+	v := r.Group("/api/v1")
+	// v := r.Group("/api/v1", middleware.Translations(), middleware.JWT())
 	{
 		//tag
 		t := v1.NewTag()
