@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-programming-tour-book/blog-service/pkg/tracer"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -28,6 +29,11 @@ func init() {
 	err = setupLogger()
 	if err != nil {
 		log.Fatalf("init.setupLogger err: %v", err)
+	}
+	//初始化链路跟踪
+	err = setupTracer()
+	if err != nil {
+		log.Fatalf("init.setupTracer err: %v", err)
 	}
 }
 
@@ -96,5 +102,14 @@ func setupLogger() error {
 		MaxAge:    10,
 		LocalTime: true,
 	}, "", log.LstdFlags).WithCaller(2)
+	return nil
+}
+
+func setupTracer() error {
+	jaegerTracer, _, err := tracer.NewJaegerTracer("blog-server", "127.0.0.1:8888")
+	if err != nil {
+		return err
+	}
+	global.Trace = jaegerTracer
 	return nil
 }
