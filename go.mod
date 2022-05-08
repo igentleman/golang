@@ -12,6 +12,7 @@ require (
 	github.com/go-programming-tour-book/blog-service v0.0.0-20211007070625-fc62a2672eb7
 	github.com/jinzhu/gorm v1.9.12
 	github.com/juju/ratelimit v1.0.1
+	github.com/opentracing/opentracing-go v1.2.0
 	github.com/spf13/viper v1.4.0
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.8.1
@@ -42,7 +43,6 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/spf13/afero v1.8.2 // indirect

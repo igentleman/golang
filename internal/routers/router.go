@@ -31,6 +31,7 @@ func NewRoutes() *gin.Engine {
 		r.Use(middleware.AccessLog())
 		r.Use(middleware.Recovery())
 	}
+	// r.Use(middleware.Tracer()) //链路追踪
 	r.Use(middleware.RateLimiter(methodLimiters))
 	// r.Use(middleware.RateLimiter(ipLimiters))
 	r.Use(middleware.Translations())
