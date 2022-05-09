@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"goproject/main/ginweb/global"
 	"goproject/main/ginweb/internal/model"
 	"goproject/main/ginweb/internal/routers"
@@ -8,13 +9,20 @@ import (
 	"goproject/main/ginweb/pkg/setting"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
-	"github.com/go-programming-tour-book/blog-service/pkg/tracer"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var (
+	port    string
+	runMode string
+	config  string
+)
+
 func init() {
+	setUpFlag()
 	//初始化配置文件
 	err := setupSetting()
 	if err != nil {
@@ -30,11 +38,12 @@ func init() {
 	if err != nil {
 		log.Fatalf("init.setupLogger err: %v", err)
 	}
+
 	//初始化链路跟踪
-	err = setupTracer()
-	if err != nil {
-		log.Fatalf("init.setupTracer err: %v", err)
-	}
+	// err = setupTracer()
+	// if err != nil {
+	// 	log.Fatalf("init.setupTracer err: %v", err)
+	// }
 }
 
 // @title 博客系统
@@ -53,7 +62,7 @@ func main() {
 }
 
 func setupSetting() error {
-	setting, err := setting.NewSetting()
+	setting, err := setting.NewSetting(strings.Split(config, ",")...)
 	if err != nil {
 		return err
 	}
@@ -78,6 +87,12 @@ func setupSetting() error {
 	err = setting.ReadSection("Email", &global.EmailSetting)
 	if err != nil {
 		return err
+	}
+	if port != "" {
+		global.ServerSetting.HttpPort = port
+	}
+	if runMode != "" {
+		global.ServerSetting.RunMode = runMode
 	}
 
 	global.ServerSetting.ReadTimeout *= time.Second
@@ -105,11 +120,19 @@ func setupLogger() error {
 	return nil
 }
 
-func setupTracer() error {
-	jaegerTracer, _, err := tracer.NewJaegerTracer("blog-server", "127.0.0.1:8888")
-	if err != nil {
-		return err
-	}
-	global.Trace = jaegerTracer
+// func setupTracer() error {
+// 	jaegerTracer, _, err := tracer.NewJaegerTracer("blog-server", "127.0.0.1:8888")
+// 	if err != nil {
+// 		return err
+// 	}
+// 	global.Trace = jaegerTracer
+// 	return nil
+// }
+
+func setUpFlag() error {
+	flag.StringVar(&port, "port", "", "启动端口")
+	flag.StringVar(&runMode, "mode", "", "启动模式")
+	flag.StringVar(&config, "config", "./configs", "指定要要使用的配置文件路径")
+	flag.Parse()
 	return nil
 }

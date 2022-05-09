@@ -21,7 +21,7 @@ Database:
  Username: root
  Password:
  Host: 127.0.0.1:3306
- DBName: go
+ DBName: blog
  TablePrefix: blog_
  Charset: utf8
  ParseTime: True
