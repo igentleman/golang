@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"goproject/main/ginweb/global"
 	"goproject/main/ginweb/internal/service"
 	"goproject/main/ginweb/pkg/app"
@@ -131,5 +132,13 @@ func (t *Tag) TagGet(r *gin.Context) {
 		response.ToErrorResponse(errcode.ErrorGetTagListFail.WithDetails(e.Error()))
 		return
 	}
+	fmt.Println("增加Policy")
+	if ok := global.Casbin.AddPolicy("admin", "/admin/api/v1/policy", "POST"); !ok {
+		fmt.Println("Policy已经存在")
+	} else {
+		fmt.Println("增加成功")
+	}
+	s11 := global.Casbin.GetPolicy()
+	fmt.Println(s11)
 	response.ToResponseList(tagList, num)
 }

@@ -19,3 +19,8 @@ var (
 var (
 	ErrorUploadFileFail = NewError(20030001, "上传文件失败")
 )
+
+//admin
+var (
+	ErrorAddPolicyFail = NewError(20040001, "添加policy")
+)

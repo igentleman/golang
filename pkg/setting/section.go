@@ -21,6 +21,7 @@ type AppSettingS struct {
 	UploadServerUrl      string
 	UploadImageMaxSize   int
 	UploadImageAllowExts []string
+	RbacConfigPath       string
 }
 
 type DatabaseSettingS struct {

@@ -5,17 +5,17 @@ import (
 )
 
 type AuthGetQuery struct {
-	AppKey    string `form:"app_key" binding:"required"`
-	AppSecret string `form:"app_secret" binding:"required"`
+	Username string `form:"username" binding:"required"`
+	Password string `form:"password" binding:"required"`
 }
 
-func (s *Service) CheckAuth(param *AuthGetQuery) error {
-	auth, err := s.Dao.GetAuth(param.AppKey, param.AppSecret)
+func (s *Service) CheckAuth(param *AuthGetQuery) (uint, error) {
+	auth, err := s.Dao.GetAuth(param.Username, param.Password)
 	if err != nil {
-		return err
+		return 0, err
 	}
 	if auth.ID > 0 {
-		return nil
+		return auth.ID, nil
 	}
-	return fmt.Errorf("%v", "auth info does not exist")
+	return 0, fmt.Errorf("%v", "auth info does not exist")
 }

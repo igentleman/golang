@@ -12,6 +12,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/casbin/casbin"
+	gormadapter "github.com/casbin/gorm-adapter"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -106,7 +108,9 @@ func setupDbEngine() error {
 	if err != nil {
 		return err
 	}
+	a := gormadapter.NewAdapterByDB(db)
 	global.DbEngine = db
+	global.Casbin = casbin.NewEnforcer(global.AppSetting.RbacConfigPath, a)
 	return nil
 }
 

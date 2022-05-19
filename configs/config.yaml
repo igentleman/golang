@@ -16,12 +16,13 @@ App:
  - .jpg
  - .png
  - .jpeg
+ RbacConfigPath: configs/rbac_models.conf
 Database:
  DBType: mysql
  Username: root
  Password:
  Host: 127.0.0.1:3306
- DBName: blog
+ DBName: go
  TablePrefix: blog_
  Charset: utf8
  ParseTime: True

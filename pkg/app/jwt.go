@@ -11,6 +11,7 @@ import (
 type Claims struct {
 	AppKey    string `json:"app_key"`
 	AppSecret string `json:"app_secret"`
+	Role      string `json:"role"`
 	jwt.StandardClaims
 }
 
@@ -23,7 +24,8 @@ func GenerateToken(appKey, appSecret string) (string, error) {
 	newTime := time.Now()
 	expireTime := newTime.Add(global.JWTSetting.Expire)
 	claims := Claims{
-		AppKey:    util.Md5(appKey),
+		AppKey:    appKey,
+		Role:      "admin",
 		AppSecret: util.Md5(appSecret),
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(),

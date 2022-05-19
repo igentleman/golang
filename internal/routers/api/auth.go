@@ -17,17 +17,19 @@ func GetAuth(r *gin.Context) {
 		return
 	}
 	service := service.New(r.Request.Context())
-	err := service.CheckAuth(&s)
+	id, err := service.CheckAuth(&s)
 	if err != nil {
 		response.ToErrorResponse(errcode.UnauthorizedAuthNotExist)
 		return
 	}
-	token, err := app.GenerateToken(s.AppKey, s.AppSecret)
+	token, err := app.GenerateToken(s.Username, s.Password)
 	if err != nil {
 		response.ToErrorResponse(errcode.UnauthorizedTokenGenerate.WithDetails(err.Error()))
 		return
 	}
 	response.ToResponse(gin.H{
+		"uuid":  id,
 		"token": token,
+		"name":  s.Username,
 	})
 }

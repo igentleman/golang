@@ -3,6 +3,8 @@ package global
 import (
 	"goproject/main/ginweb/pkg/logger"
 	"goproject/main/ginweb/pkg/setting"
+
+	"github.com/casbin/casbin"
 )
 
 var (
@@ -12,4 +14,5 @@ var (
 	Logger          *logger.Logger
 	JWTSetting      *setting.JWTSettingS
 	EmailSetting    *setting.EmailSettingS
+	Casbin          *casbin.Enforcer
 )

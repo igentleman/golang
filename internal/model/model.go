@@ -24,7 +24,8 @@ type Model struct {
 func NewDBEngine(dbConfig *setting.DatabaseSettingS) (*gorm.DB, error) {
 	db, err := gorm.Open(dbConfig.DBType, fmt.Sprintf("%v:%v@/%v?charset=%v&parseTime=%v&loc=Local", dbConfig.UserName, dbConfig.Password, dbConfig.DBName, dbConfig.Charset, dbConfig.ParseTime))
 	if err != nil {
-		log.Fatal("数据库连接失败，err=", err)
+		log.Fatal("数据库连接失败,err=", err)
+		return nil, err
 	}
 	//defer db.Close()
 
